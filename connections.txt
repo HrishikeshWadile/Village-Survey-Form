@@ -1,0 +1,3 @@
+username = nss_db_user
+pass = BDyuj3LqJW5Q4GOd
+connectionstring = mongodb+srv://nss_db_user:BDyuj3LqJW5Q4GOd@cluster0.eyczerh.mongodb.net/?appName=Cluster0

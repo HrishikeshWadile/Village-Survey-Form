@@ -1,0 +1,150 @@
+body {
+  background: #f4f6f8;
+  font-family: Segoe UI, sans-serif;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 16px;
+}
+
+.card {
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.field label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 4px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.checkbox-group label {
+  display: block;
+  font-weight: normal;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 8px 14px;
+  background: #007bff;
+  color: white;
+  border-radius: 6px;
+  border: none;
+}
+
+/* ===== Equipment table fixes ===== */
+
+.equipment-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+#equipmentTable input,
+#equipmentTable select {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Make table responsive on small screens */
+@media (max-width: 600px) {
+  table {
+    font-size: 14px;
+  }
+
+  th,
+  td {
+    padding: 6px;
+  }
+
+  button {
+    padding: 6px 10px;
+  }
+}
+
+/* Prevent overflow */
+* {
+  box-sizing: border-box;
+}
+
+/* Production input + unit dropdown */
+.production-cell {
+  display: flex;
+  gap: 6px;
+}
+
+.production-cell input {
+  flex: 1;
+}
+
+.production-cell select {
+  width: 90px;
+}
+
+/* Improve table on small screens */
+table {
+  table-layout: fixed;
+}
+
+td input,
+td select {
+  max-width: 100%;
+}
+
+/* Remove button style */
+.remove-btn {
+  background: #dc3545;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+/* Mobile tweak */
+@media (max-width: 600px) {
+
+  th,
+  td {
+    font-size: 13px;
+    padding: 6px;
+  }
+
+  .production-cell select {
+    width: 70px;
+  }
+}

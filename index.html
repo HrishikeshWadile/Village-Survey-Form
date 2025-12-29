@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Village Census Form</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Village Census Form (Janganana)</h1>
+
+        <!-- PAGE 1 -->
+        <section class="card">
+            <h2>Page 1 – Family Details (कुटुंब माहिती)</h2>
+
+            <div class="grid">
+
+                <div class="field">
+                    <label>House Number (घर क्रमांक)</label>
+                    <input />
+                </div>
+
+                <div class="field">
+                    <label>Address (पत्ता)</label>
+                    <input />
+                </div>
+
+                <div class="field">
+                    <label>Head of Family Name (कुटुंब प्रमुख नाव)</label>
+                    <input />
+                </div>
+
+                <div class="field">
+                    <label>Aadhaar Number (आधार क्रमांक)</label>
+                    <input />
+                </div>
+
+                <div class="field">
+                    <label>PAN Number (पॅन क्रमांक)</label>
+                    <input />
+                </div>
+
+                <div class="field">
+                    <label>ABHA Number (आभा क्रमांक)</label>
+                    <input />
+                </div>
+
+                <div class="field">
+                    <label>Income (वार्षिक उत्पन्न)</label>
+                    <input type="number" />
+                </div>
+
+                <div class="field">
+                    <label>Mobile Number</label>
+                    <input />
+                </div>
+
+                <div class="field">
+                    <label>Age</label>
+                    <input type="number" />
+                </div>
+
+                <div class="field">
+                    <label>Gender</label>
+                    <select>
+                        <option value="">Select</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Religion</label>
+                    <select id="religion" onchange="updateCategory()">
+                        <option value="">Select</option>
+                        <option value="demo1">Demo 1</option>
+                        <option value="demo2">Demo 2</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Category</label>
+                    <select id="category" onchange="updateCaste()"></select>
+                </div>
+
+                <div class="field">
+                    <label>Caste</label>
+                    <select id="caste"></select>
+                </div>
+
+                <div class="field">
+                    <label>Marital Status</label>
+                    <select>
+                        <option value="">Select</option>
+                        <option value="Married">Married</option>
+                        <option value="Unmarried">Unmarried</option>
+                        <option value="Widowed">Widowed</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Education</label>
+                    <input />
+                </div>
+
+                <div class="field">
+                    <label>Occupation</label>
+                    <input />
+                </div>
+
+                <div class="field">
+                    <label>Ration Card Number</label>
+                    <input />
+                </div>
+
+                <div class="field">
+                    <label>Govt Schemes Applied</label>
+                    <div id="schemes"></div>
+                    <button type="button" onclick="addScheme()">+ Add Scheme</button>
+                </div>
+
+                <div class="field">
+                    <label>Total Family Members</label>
+                    <input type="number" id="familyCount" onchange="generateMembers()" />
+                </div>
+
+            </div>
+
+            <h3>Family Members (excluding head)</h3>
+            <div id="members"></div>
+        </section>
+
+        <!-- PAGE 2 -->
+        <section class="card">
+            <h2>Page 2 – Farm & Cattle Details</h2>
+
+            <div class="field">
+                <label>Farm Present?</label>
+                <select onchange="toggleFarm(this.value)">
+                    <option>No</option>
+                    <option>Yes</option>
+                </select>
+            </div>
+
+            <div id="farmSection" style="display:none">
+
+                <div class="grid">
+                    <div class="field">
+                        <label>Total Land Area</label>
+                        <input />
+                    </div>
+
+                    <div class="field">
+                        <label>Crops Grown</label>
+
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" value="Wheat"> Wheat</label>
+                            <label><input type="checkbox" value="Rice"> Rice</label>
+                            <label><input type="checkbox" value="Sugarcane"> Sugarcane</label>
+                            <label>
+                                <input type="checkbox" id="cropOther" onchange="toggleOtherCrop(this.checked)">
+                                Other
+                            </label>
+                        </div>
+
+                        <div id="otherCropSection" style="display:none">
+                            <label>Number of other crops</label>
+                            <input type="number" min="1" id="otherCropCount" oninput="generateOtherCrops()" />
+                            <div id="otherCropInputs"></div>
+                        </div>
+                    </div>
+
+
+                    <div class="field">
+                        <label>Irrigation Source</label>
+
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" value="Well"> Well</label>
+                            <label><input type="checkbox" value="Borewell"> Borewell</label>
+                            <label><input type="checkbox" value="Canal"> Canal</label>
+                            <label>
+                                <input type="checkbox" id="irrigationOther"
+                                    onchange="toggleOtherIrrigation(this.checked)">
+                                Other
+                            </label>
+                        </div>
+
+                        <div id="otherIrrigationSection" style="display:none">
+                            <label>Number of other irrigation sources</label>
+                            <input type="number" min="1" id="otherIrrigationCount"
+                                oninput="generateOtherIrrigation()" />
+                            <div id="otherIrrigationInputs"></div>
+                        </div>
+                    </div>
+
+
+                    <div class="field">
+                        <label>Year Round Irrigation</label>
+                        <select>
+                            <option>Yes</option>
+                            <option>No</option>
+                        </select>
+                    </div>
+
+                    <h3>Farm Equipment</h3>
+                    <table id="equipmentTable">
+                        <thead>
+                            <tr>
+                                <th>Equipment</th>
+                                <th>Quantity</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <button type="button" onclick="addEquipment()">+ Add Equipment</button>
+
+
+                    <div class="field">
+                        <label>Farm Income (₹ / year)</label>
+                        <input type="number" />
+                    </div>
+                </div>
+            </div>
+
+            <h3>Cattle & Livestock</h3>
+
+            <table id="cattleTable">
+                <thead>
+                    <tr>
+                        <th>Animal</th>
+                        <th>Purpose</th>
+                        <th>Production</th>
+                        <th>Income (₹)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3"><strong>Total Income</strong></td>
+                        <td id="totalIncome">0</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <button onclick="addCattle()">+ Add Cattle</button>
+
+        </section>
+
+    </div>
+
+    <script src="dist/script.js" defer></script>
+</body>
+
+</html>
