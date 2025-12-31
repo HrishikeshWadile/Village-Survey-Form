@@ -5,256 +5,307 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Village Census Form</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Your CSS -->
     <link rel="stylesheet" href="styles.css" />
 </head>
 
-<body>
+<body class="bg-light">
 
-    <div class="container">
-        <h1>Village Census Form (Janganana)</h1>
+    <!-- ===== HEADER ===== -->
+    <header class="bg-primary text-white py-3 mb-4">
+        <div class="container d-flex align-items-center gap-3">
+            <!-- Placeholder for logo/image -->
+            <div class="bg-white rounded logo-placeholder"></div>
 
-        <!-- PAGE 1 -->
-        <section class="card">
-            <h2>Page 1 – Family Details (कुटुंब माहिती)</h2>
-
-            <div class="grid">
-
-                <div class="field">
-                    <label>House Number (घर क्रमांक)</label>
-                    <input />
-                </div>
-
-                <div class="field">
-                    <label>Address (पत्ता)</label>
-                    <input />
-                </div>
-
-                <div class="field">
-                    <label>Head of Family Name (कुटुंब प्रमुख नाव)</label>
-                    <input />
-                </div>
-
-                <div class="field">
-                    <label>Aadhaar Number (आधार क्रमांक)</label>
-                    <input />
-                </div>
-
-                <div class="field">
-                    <label>PAN Number (पॅन क्रमांक)</label>
-                    <input />
-                </div>
-
-                <div class="field">
-                    <label>ABHA Number (आभा क्रमांक)</label>
-                    <input />
-                </div>
-
-                <div class="field">
-                    <label>Income (वार्षिक उत्पन्न)</label>
-                    <input type="number" />
-                </div>
-
-                <div class="field">
-                    <label>Mobile Number</label>
-                    <input />
-                </div>
-
-                <div class="field">
-                    <label>Age</label>
-                    <input type="number" />
-                </div>
-
-                <div class="field">
-                    <label>Gender</label>
-                    <select>
-                        <option value="">Select</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-
-                <div class="field">
-                    <label>Religion</label>
-                    <select id="religion" onchange="updateCategory()">
-                        <option value="">Select</option>
-                        <option value="demo1">Demo 1</option>
-                        <option value="demo2">Demo 2</option>
-                    </select>
-                </div>
-
-                <div class="field">
-                    <label>Category</label>
-                    <select id="category" onchange="updateCaste()"></select>
-                </div>
-
-                <div class="field">
-                    <label>Caste</label>
-                    <select id="caste"></select>
-                </div>
-
-                <div class="field">
-                    <label>Marital Status</label>
-                    <select>
-                        <option value="">Select</option>
-                        <option value="Married">Married</option>
-                        <option value="Unmarried">Unmarried</option>
-                        <option value="Widowed">Widowed</option>
-                    </select>
-                </div>
-
-                <div class="field">
-                    <label>Education</label>
-                    <input />
-                </div>
-
-                <div class="field">
-                    <label>Occupation</label>
-                    <input />
-                </div>
-
-                <div class="field">
-                    <label>Ration Card Number</label>
-                    <input />
-                </div>
-
-                <div class="field">
-                    <label>Govt Schemes Applied</label>
-                    <div id="schemes"></div>
-                    <button type="button" onclick="addScheme()">+ Add Scheme</button>
-                </div>
-
-                <div class="field">
-                    <label>Total Family Members</label>
-                    <input type="number" id="familyCount" onchange="generateMembers()" />
-                </div>
-
+            <div>
+                <h4 class="mb-0">Village Census Form</h4>
+                <small>ग्राम जनगणना फॉर्म</small>
             </div>
+        </div>
+    </header>
 
-            <h3>Family Members (excluding head)</h3>
-            <div id="members"></div>
-        </section>
+    <div class="container mb-5">
 
-        <!-- PAGE 2 -->
-        <section class="card">
-            <h2>Page 2 – Farm & Cattle Details</h2>
-
-            <div class="field">
-                <label>Farm Present?</label>
-                <select onchange="toggleFarm(this.value)">
-                    <option>No</option>
-                    <option>Yes</option>
-                </select>
-            </div>
-
-            <div id="farmSection" style="display:none">
+        <section class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Page 1 – Family Details (कुटुंब माहिती)</h5>
 
                 <div class="grid">
+
                     <div class="field">
-                        <label>Total Land Area</label>
-                        <input />
+                        <label>House Number (घर क्रमांक)</label>
+                        <input title="House Number" />
                     </div>
 
                     <div class="field">
-                        <label>Crops Grown</label>
-
-                        <div class="checkbox-group">
-                            <label><input type="checkbox" value="Wheat"> Wheat</label>
-                            <label><input type="checkbox" value="Rice"> Rice</label>
-                            <label><input type="checkbox" value="Sugarcane"> Sugarcane</label>
-                            <label>
-                                <input type="checkbox" id="cropOther" onchange="toggleOtherCrop(this.checked)">
-                                Other
-                            </label>
-                        </div>
-
-                        <div id="otherCropSection" style="display:none">
-                            <label>Number of other crops</label>
-                            <input type="number" min="1" id="otherCropCount" oninput="generateOtherCrops()" />
-                            <div id="otherCropInputs"></div>
-                        </div>
+                        <label>Full Address (संपूर्ण पत्ता)</label>
+                        <input title="Full Address" />
                     </div>
 
-
                     <div class="field">
-                        <label>Irrigation Source</label>
-
-                        <div class="checkbox-group">
-                            <label><input type="checkbox" value="Well"> Well</label>
-                            <label><input type="checkbox" value="Borewell"> Borewell</label>
-                            <label><input type="checkbox" value="Canal"> Canal</label>
-                            <label>
-                                <input type="checkbox" id="irrigationOther"
-                                    onchange="toggleOtherIrrigation(this.checked)">
-                                Other
-                            </label>
-                        </div>
-
-                        <div id="otherIrrigationSection" style="display:none">
-                            <label>Number of other irrigation sources</label>
-                            <input type="number" min="1" id="otherIrrigationCount"
-                                oninput="generateOtherIrrigation()" />
-                            <div id="otherIrrigationInputs"></div>
-                        </div>
+                        <label>Head of Family Name (कुटुंब प्रमुखाचे नाव)</label>
+                        <input title="Head of Family Name" />
                     </div>
 
+                    <div class="field">
+                        <label>Aadhaar Number (आधार कार्ड क्रमांक)</label>
+                        <input title="Aadhaar Number" />
+                    </div>
 
                     <div class="field">
-                        <label>Year Round Irrigation</label>
-                        <select>
-                            <option>Yes</option>
-                            <option>No</option>
+                        <label>ABHA Number (आभा / आरोग्य क्रमांक)</label>
+                        <select title="ABHA Number">
+                            <option>Yes (होय)</option>
+                            <option>No (नाही)</option>
                         </select>
                     </div>
 
-                    <h3>Farm Equipment</h3>
-                    <table id="equipmentTable">
-                        <thead>
-                            <tr>
-                                <th>Equipment</th>
-                                <th>Quantity</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                    <button type="button" onclick="addEquipment()">+ Add Equipment</button>
+                    <div class="field">
+                        <label>Annual Income (वार्षिक उत्पन्न)</label>
+                        <input type="number" title="Annual Income" />
+                    </div>
+
+                    <div class="field">
+                        <label>Mobile Number (मोबाईल क्रमांक)</label>
+                        <input title="Mobile Number" />
+                    </div>
+
+                    <div class="field">
+                        <label>Age (वय)</label>
+                        <input type="number" title="Age" />
+                    </div>
+
+                    <div class="field">
+                        <label>Gender (लिंग)</label>
+                        <select title="Gender">
+                            <option value="">Select (निवडा)</option>
+                            <option value="Male">Male (पुरुष)</option>
+                            <option value="Female">Female (महिला)</option>
+                            <option value="Other">Other (इतर)</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>Religion (धर्म)</label>
+                        <input title="Religion" />
+                    </div>
+
+                    <div class="field">
+                        <label>Category (वर्ग)</label>
+                        <input title="Category" />
+                    </div>
+
+                    <div class="field">
+                        <label>Caste (जात)</label>
+                        <input title="Caste" />
+                    </div>
+
+                    <div class="field">
+                        <label>Marital Status (वैवाहिक स्थिती)</label>
+                        <select title="Marital Status">
+                            <option value="">Select (निवडा)</option>
+                            <option value="Married">Married (विवाहित)</option>
+                            <option value="Unmarried">Unmarried (अविवाहित)</option>
+                            <option value="Widowed">Widowed (विधवा / विधुर)</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>Education Qualification (शैक्षणिक पात्रता)</label>
+                        <input title="Education Qualification" />
+                    </div>
+
+                    <div class="field">
+                        <label>Occupation / Work (व्यवसाय / काम)</label>
+                        <input title="Occupation / Work" />
+                    </div>
+
+                    <div class="field">
+                        <label>Residence (राहण्याची जागा)</label>
+                        <select title="Residence">
+                            <option value="">Select (निवडा)</option>
+                            <option value="Village">Village (गाव)</option>
+                            <option value="Outside Village">Outside Village (गावाबाहेर)</option>
+                        </select>
+                    </div>
 
 
                     <div class="field">
-                        <label>Farm Income (₹ / year)</label>
-                        <input type="number" />
+                        <label>Ration Card Number (रेशन कार्ड क्रमांक)</label>
+                        <select title="Ration Card Number">
+                            <option value="">Select (निवडा)</option>
+                            <option>Orange (नारंगी)</option>
+                            <option>Yellow (पिवळा)</option>
+                            <option>White (पांढरा)</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>Government Schemes Availed (शासकीय योजना)</label>
+                        <div id="schemes"></div>
+                        <button type="button" onclick="addScheme()">+ Add Scheme (योजना जोडा)</button>
+                    </div>
+
+                    <div class="field">
+                        <label>Total Family Members (कुटुंबातील एकूण सदस्य)</label>
+                        <input type="number" id="familyCount" title="Total Family Members"
+                            onchange="generateMembers()" />
+                    </div>
+
+                </div>
+
+                <h6 class="mt-4">Family Members – कुटुंबातील सदस्य</h6>
+                <div id="members"></div>
+            </div>
+        </section>
+
+        <!-- PAGE 2 -->
+        <section class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h5 class="card-title mb-3">
+                    Page 2 – Farm & Cattle Details (शेती व जनावरांची माहिती)
+                </h5>
+
+                <div class="field">
+                    <label>Farm Present? (शेती आहे का?)</label>
+                    <select title="Farm Present" onchange="toggleFarm(this.value)">
+                        <option>No (नाही)</option>
+                        <option>Yes (होय)</option>
+                    </select>
+                </div>
+
+                <div id="farmSection">
+
+                    <div class="grid">
+                        <div class="field">
+                            <label>Total Land Area (एकूण शेती क्षेत्र)</label>
+                            <input title="Total Land Area" />
+                        </div>
+
+                        <div class="field">
+                            <label>Crops Grown (लागवड केलेली पिके)</label>
+
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" value="Wheat"> Wheat (गहू)</label>
+                                <label><input type="checkbox" value="Rice"> Rice (भात)</label>
+                                <label><input type="checkbox" value="Sugarcane"> Sugarcane (ऊस)</label>
+                                <label><input type="checkbox" value="Cotton"> Cotton (कापूस)</label>
+                                <label><input type="checkbox" value="Maize"> Maize (मका)</label>
+                                <label>
+                                    <input type="checkbox" id="cropOther" onchange="toggleOtherCrop(this.checked)">
+                                    Other (इतर)
+                                </label>
+                            </div>
+
+                            <div id="otherCropSection">
+                                <label>Number of Other Crops (इतर पिकांची संख्या)</label>
+                                <input type="number" min="1" id="otherCropCount" title="Number of Other Crops"
+                                    oninput="generateOtherCrops()" />
+                                <div id="otherCropInputs"></div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Irrigation Source (पाणीपुरवठ्याचा स्रोत)</label>
+
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" value="Well"> Well (विहीर)</label>
+                                <label><input type="checkbox" value="Borewell"> Borewell (बोअरवेल)</label>
+                                <label><input type="checkbox" value="Canal"> Canal (कालवा)</label>
+                                <label><input type="checkbox" value="River"> River (नदी)</label>
+                                <label>
+                                    <input type="checkbox" id="irrigationOther"
+                                        onchange="toggleOtherIrrigation(this.checked)">
+                                    Other (इतर)
+                                </label>
+                            </div>
+
+                            <div id="otherIrrigationSection">
+                                <label>Other Irrigation Sources (इतर पाण्याचे स्रोत)</label>
+                                <input type="number" min="1" id="otherIrrigationCount" title="Other Irrigation Count"
+                                    oninput="generateOtherIrrigation()" />
+                                <div id="otherIrrigationInputs"></div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Year Round Irrigation (वर्षभर पाणी उपलब्ध आहे का?)</label>
+                            <select title="Year Round Irrigation">
+                                <option>Yes (होय)</option>
+                                <option>No (नाही)</option>
+                            </select>
+                        </div>
+
+                        <h3>Farm Equipment (शेती अवजारे)</h3>
+                        <table id="equipmentTable">
+                            <thead>
+                                <tr>
+                                    <th>Equipment (अवजार)</th>
+                                    <th>Quantity (संख्या)</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                        <button type="button" onclick="addEquipment()">+ Add Equipment (अवजार जोडा)</button>
+
+                        <div class="field">
+                            <label>Farm Income per Year (शेती उत्पन्न – वार्षिक ₹)</label>
+                            <input type="number" title="Farm Income per Year" />
+                        </div>
                     </div>
                 </div>
+
+                <h3>Cattle & Livestock (जनावरे)</h3>
+
+                <table id="cattleTable">
+                    <thead>
+                        <tr>
+                            <th>Animal (जनावर)</th>
+                            <th>Purpose (उपयोग)</th>
+                            <th>Production (उत्पादन)</th>
+                            <th>Income (उत्पन्न ₹)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3"><strong>Total Income (एकूण उत्पन्न)</strong></td>
+                            <td id="totalIncome">0</td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <button type="button" onclick="addCattle()">+ Add Cattle (जनावर जोडा)</button>
             </div>
-
-            <h3>Cattle & Livestock</h3>
-
-            <table id="cattleTable">
-                <thead>
-                    <tr>
-                        <th>Animal</th>
-                        <th>Purpose</th>
-                        <th>Production</th>
-                        <th>Income (₹)</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="3"><strong>Total Income</strong></td>
-                        <td id="totalIncome">0</td>
-                    </tr>
-                </tfoot>
-            </table>
-
-            <button onclick="addCattle()">+ Add Cattle</button>
-
         </section>
 
     </div>
 
+    <!-- SUBMIT BUTTON -->
+    <div class="text-center mt-4">
+        <button type="button" class="btn btn-success px-5 py-2" onclick="submitCensusForm()">
+            Submit Census Form (फॉर्म सबमिट करा)
+        </button>
+    </div>
+
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-dark text-white text-center py-3">
+        <small>
+            National Service Scheme (NSS) <br>
+            AISSMS IOIT, Pune
+        </small>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Your Script -->
     <script src="dist/script.js" defer></script>
 </body>
 

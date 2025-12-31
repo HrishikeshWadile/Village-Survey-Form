@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 const religionData = {
     demo1: {
         categories: {
@@ -99,77 +108,86 @@ function generateMembers() {
         const box = document.createElement("div");
         box.className = "card";
         box.innerHTML = `
-            <strong>Member ${i}</strong>
+            <strong>Member ${i} (कुटुंब सदस्य)</strong>
             <div class="grid">
 
                 <div class="field">
-                    <label>Name</label>
+                    <label>Name (नाव)</label>
                     <input type="text" />
                 </div>
 
                 <div class="field">
-                    <label>Age</label>
+                    <label>Age (वय)</label>
                     <input type="number" min="0" />
                 </div>
 
                 <div class="field">
-                    <label>Gender</label>
+                    <label>Gender (लिंग)</label>
                     <select>
-                        <option value="">Select</option>
-                        <option>Male</option>
-                        <option>Female</option>
-                        <option>Other</option>
+                        <option value="">Select (निवडा)</option>
+                        <option>Male (पुरुष)</option>
+                        <option>Female (स्त्री)</option>
+                        <option>Other (इतर)</option>
                     </select>
                 </div>
 
                 <div class="field">
-                    <label>Relation with Head</label>
+                    <label>Relation with Head (कुटुंब प्रमुखाशी नाते)</label>
                     <input type="text" />
                 </div>
 
                 <div class="field">
-                    <label>Marital Status</label>
+                    <label>Marital Status (वैवाहिक स्थिती)</label>
                     <select>
-                        <option value="">Select</option>
-                        <option>Married</option>
-                        <option>Unmarried</option>
-                        <option>Widowed</option>
+                        <option value="">Select (निवडा)</option>
+                        <option>Married (विवाहित)</option>
+                        <option>Unmarried (अविवाहित)</option>
+                        <option>Widowed (विधवा / विधुर)</option>
                     </select>
                 </div>
 
                 <div class="field">
-                    <label>Mobile Number</label>
+                    <label>Mobile Number (मोबाईल क्रमांक)</label>
                     <input type="tel" />
                 </div>
 
                 <div class="field">
-                    <label>Annual Income (₹)</label>
+                    <label>Annual Income (₹) (वार्षिक उत्पन्न)</label>
                     <input type="number" min="0" />
                 </div>
 
                 <div class="field">
-                    <label>Education</label>
+                    <label>Education (शिक्षण)</label>
                     <input type="text" />
                 </div>
 
                 <div class="field">
-                    <label>Occupation</label>
+                    <label>Occupation (व्यवसाय)</label>
                     <input type="text" />
                 </div>
 
+                
                 <div class="field">
-                    <label>Aadhaar Number</label>
+                    <label>Residence (राहण्याची जागा)</label>
+                    <select title="Residence">
+                        <option value="">Select (निवडा)</option>
+                        <option value="Village">Village (गाव)</option>
+                        <option value="Outside Village">Outside Village (गावाबाहेर)</option>
+                    </select>
+                </div>
+        
+
+                <div class="field">
+                    <label>Aadhaar Number (आधार क्रमांक)</label>
                     <input type="text" maxlength="12" />
                 </div>
 
                 <div class="field">
-                    <label>PAN Number</label>
-                    <input type="text" maxlength="10" />
-                </div>
-
-                <div class="field">
-                    <label>ABHA Number</label>
-                    <input type="text" />
+                    <label>ABHA Number (आभा क्रमांक)</label>
+                    <select>
+                        <option>Yes (होय)</option>
+                        <option>No (नाही)</option>
+                    </select>
                 </div>
 
             </div>
@@ -181,7 +199,7 @@ function toggleFarm(val) {
     const farmSection = document.getElementById("farmSection");
     if (!farmSection)
         return;
-    farmSection.style.display = val === "Yes" ? "block" : "none";
+    farmSection.style.display = val === "Yes (होय)" ? "block" : "none";
 }
 function toggleOtherCrop(checked) {
     const section = document.getElementById("otherCropSection");
@@ -250,30 +268,36 @@ function addEquipment() {
         <td>
             <div class="equipment-cell">
                 <select onchange="handleEquipmentChange(this)">
-                    <option value="">Select</option>
-                    <option value="Spade">Spade (Kudad)</option>
-                    <option value="Sickle">Sickle</option>
-                    <option value="Plough">Plough</option>
-                    <option value="Tractor">Tractor</option>
-                    <option value="Other">Other</option>
+                    <option value="">Select (निवडा)</option>
+                    <option value="Tractor">Tractor (ट्रॅक्टर)</option>
+                    <option value="PowerTiller">Power Tiller (पॉवर टिलर)</option>
+                    <option value="Harvester">Harvester (कापणी यंत्र)</option>
+                    <option value="SprayerMachine">Sprayer Machine (फवारणी यंत्र)</option>
+                    <option value="DripIrrigation">Drip Irrigation System (ठिबक सिंचन)</option>
+                    <option value="None">None (नाही)</option>
                 </select>
                 <input 
                     type="text"
                     class="custom-equipment"
-                    placeholder="Enter equipment name"
+                    placeholder="Enter equipment name (साधनाचे नाव लिहा)"
                     style="display:none"
                 />
             </div>
         </td>
 
         <td>
-            <input type="number" min="1" />
+            <input 
+                type="number" 
+                min="1" 
+                placeholder="Quantity (संख्या)"
+            />
         </td>
 
         <td style="text-align:center;">
             <button 
                 type="button" 
                 class="remove-btn"
+                title="Remove (काढा)"
                 onclick="this.closest('tr')?.remove()"
             >
                 ✕
@@ -288,42 +312,247 @@ function addCattle() {
     const row = tbody.insertRow();
     row.innerHTML = `
         <td>
-            <select>
-                <option value="">Select</option>
-                <option>Cow</option>
-                <option>Buffalo</option>
-                <option>Goat</option>
-                <option>Other</option>
+            <select onchange="handleCattleTypeChange(this)">
+                <option value="">Select (निवडा)</option>
+
+                <!-- Large animals -->
+                <option value="Cow">Cow (गाय)</option>
+                <option value="Buffalo">Buffalo (म्हैस)</option>
+                <option value="Bull/Ox">Bull / Ox (बैल)</option>
+
+                <!-- Small livestock -->
+                <option value="Goat">Goat (शेळी)</option>
+                <option value="Sheep">Sheep (मेंढी)</option>
+                <option value="Pig">Pig (डुक्कर)</option>
+
+                <!-- Poultry -->
+                <option value="Hen">Hen / Chicken (कोंबडी)</option>
+                <option value="Duck">Duck (बदक)</option>
+
+                <!-- Others -->
+                <option value="Other">Other (इतर)</option>
             </select>
+
+            <input 
+                class="custom-cattle"
+                placeholder="Enter animal type (प्राण्याचा प्रकार लिहा)"
+                style="display:none"
+            />
         </td>
+
+
         <td>
-            <input placeholder="Custom type" />
+            <input placeholder="Purpose (उद्देश: दूध / मांस / शेती)" />
         </td>
+
         <td>
-            <input type="number" style="width:70px" />
-            <select>
-                <option>Litre</option>
-                <option>Kg</option>
-                <option>Count</option>
-                <option>Dozen</option>
-            </select>
+            <div class="production-cell">
+                <input 
+                    type="number" 
+                    min="0" 
+                    placeholder="Quantity (प्रमाण)"
+                />
+                <select>
+                    <option value="">Unit (एकक)</option>
+                    <option>Litre (लिटर)</option>
+                    <option>Kg (किलो)</option>
+                    <option>Count (संख्या)</option>
+                    <option>Dozen (डझन)</option>
+                </select>
+            </div>
         </td>
+
         <td>
-            <input type="number" value="0" oninput="sumIncome()" />
+            <input 
+                type="number" 
+                value="0" 
+                placeholder="Income ₹ (उत्पन्न)"
+                class="income-input"
+                oninput="sumIncome()" 
+            />
         </td>
-        <td>
-            <button type="button" onclick="this.closest('tr')!.remove(); sumIncome()">X</button>
+
+        <td style="text-align:center;">
+            <button 
+                type="button" 
+                class="remove-btn"
+                title="Remove (काढा)"
+                onclick="this.closest('tr')?.remove(); sumIncome()"
+            >
+                ✕
+            </button>
         </td>
     `;
 }
+function handleCattleTypeChange(select) {
+    const cell = select.parentElement;
+    if (!cell)
+        return;
+    const customInput = cell.querySelector(".custom-cattle");
+    if (!customInput)
+        return;
+    if (select.value === "Other") {
+        customInput.style.display = "block";
+        customInput.required = true;
+    }
+    else {
+        customInput.style.display = "none";
+        customInput.value = "";
+        customInput.required = false;
+    }
+}
 function sumIncome() {
-    const incomeCells = document.querySelectorAll("#cattleTable tbody input[type='number']");
+    const incomeInputs = document.querySelectorAll("#cattleTable tbody .income-input");
     let sum = 0;
-    incomeCells.forEach(input => {
+    incomeInputs.forEach(input => {
         sum += Number(input.value) || 0;
     });
     const totalCell = document.getElementById("totalIncome");
     if (!totalCell)
         return;
     totalCell.innerText = sum.toString();
+}
+function submitCensusForm() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            // --- FAMILY DETAILS ---
+            const familyDetails = {};
+            const familyFields = document.querySelectorAll("#members, #familyCount, input, select");
+            // For simplicity, get all inputs in the top section
+            const topInputs = document.querySelectorAll(".card:first-of-type .field input, .card:first-of-type .field select");
+            topInputs.forEach(input => {
+                var _a;
+                const el = input;
+                if (el.id)
+                    familyDetails[el.id] = el.value;
+                else if (el.name)
+                    familyDetails[el.name] = el.value;
+                else if ((_a = el.previousElementSibling) === null || _a === void 0 ? void 0 : _a.textContent) {
+                    const key = el.previousElementSibling.textContent.trim();
+                    familyDetails[key] = el.value;
+                }
+            });
+            // --- MEMBERS ---
+            const members = [];
+            const memberCards = document.querySelectorAll("#members .card");
+            memberCards.forEach(card => {
+                const member = {};
+                const inputs = card.querySelectorAll("input, select");
+                inputs.forEach(input => {
+                    var _a;
+                    const el = input;
+                    const key = ((_a = el.previousElementSibling) === null || _a === void 0 ? void 0 : _a.textContent.trim()) || "unknown";
+                    member[key] = el.value;
+                });
+                members.push(member);
+            });
+            // --- FARM DETAILS ---
+            const farmDetails = {};
+            const farmSection = document.getElementById("farmSection");
+            if (farmSection && farmSection.style.display !== "none") {
+                // Total land area
+                const landInput = farmSection.querySelector("input[title='Total Land Area']");
+                farmDetails.totalLandArea = (landInput === null || landInput === void 0 ? void 0 : landInput.value) || "";
+                // ---- CROPS (checkbox array) ----
+                const crops = [];
+                // ONLY crop checkboxes
+                const cropCheckboxes = farmSection.querySelectorAll("input[type='checkbox'][value='Wheat'], \
+                input[type='checkbox'][value='Rice'], \
+                input[type='checkbox'][value='Sugarcane'], \
+                input[type='checkbox'][value='Cotton'], \
+                input[type='checkbox'][value='Maize']");
+                cropCheckboxes.forEach(cb => {
+                    const checkbox = cb;
+                    if (checkbox.checked) {
+                        crops.push(checkbox.value);
+                    }
+                });
+                // Other crops (dynamic inputs only)
+                const otherCropInputs = document.querySelectorAll("#otherCropInputs input");
+                otherCropInputs.forEach(input => {
+                    const val = input.value.trim();
+                    if (val)
+                        crops.push(val);
+                });
+                farmDetails.crops = crops;
+                // ---- IRRIGATION SOURCES (checkbox array) ----
+                const irrigationSources = [];
+                const irrigationCheckboxes = farmSection.querySelectorAll("input[type='checkbox'][value='Well'], input[type='checkbox'][value='Borewell'], input[type='checkbox'][value='Canal'], input[type='checkbox'][value='River']");
+                irrigationCheckboxes.forEach(cb => {
+                    const checkbox = cb;
+                    if (checkbox.checked) {
+                        irrigationSources.push(checkbox.value);
+                    }
+                });
+                // Other irrigation (dynamic inputs)
+                const otherIrrigationInputs = document.querySelectorAll("#otherIrrigationInputs input");
+                otherIrrigationInputs.forEach(input => {
+                    const val = input.value.trim();
+                    if (val)
+                        irrigationSources.push(val);
+                });
+                farmDetails.irrigationSources = irrigationSources;
+                // Year-round irrigation
+                const yearRoundSelect = farmSection.querySelector("select[title='Year Round Irrigation']");
+                farmDetails.yearRoundIrrigation = (yearRoundSelect === null || yearRoundSelect === void 0 ? void 0 : yearRoundSelect.value) || "";
+                // Farm income
+                const incomeInput = farmSection.querySelector("input[title='Farm Income per Year']");
+                farmDetails.farmIncomePerYear = Number(incomeInput === null || incomeInput === void 0 ? void 0 : incomeInput.value) || 0;
+            }
+            // --- EQUIPMENT ---
+            const equipment = [];
+            const equipmentRows = document.querySelectorAll("#equipmentTable tbody tr");
+            equipmentRows.forEach(row => {
+                const eq = {};
+                const select = row.querySelector("select");
+                const input = row.querySelector("input[type='text']");
+                const qty = row.querySelector("input[type='number']");
+                eq["name"] = select.value === "Other" ? input.value : select.value;
+                eq["quantity"] = Number(qty.value) || 0;
+                equipment.push(eq);
+            });
+            // --- CATTLE ---
+            const cattle = [];
+            const cattleRows = document.querySelectorAll("#cattleTable tbody tr");
+            cattleRows.forEach(row => {
+                const cat = {};
+                const typeSelect = row.querySelector("select");
+                const customInput = row.querySelector(".custom-cattle");
+                const purpose = row.querySelector("td:nth-child(2) input");
+                const production = row.querySelector("td:nth-child(3) input");
+                const unit = row.querySelector("td:nth-child(3) select");
+                const income = row.querySelector("td:nth-child(4) input");
+                cat["type"] = typeSelect.value === "Other" ? customInput.value : typeSelect.value;
+                cat["purpose"] = purpose.value;
+                cat["production"] = production.value;
+                cat["unit"] = unit.value;
+                cat["income"] = Number(income.value) || 0;
+                cattle.push(cat);
+            });
+            const totalCattleIncome = cattle.reduce((sum, c) => sum + c.income, 0);
+            // --- POST TO NETLIFY FUNCTION ---
+            const response = yield fetch("/.netlify/functions/submitCensus", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    familyDetails,
+                    members,
+                    farmDetails,
+                    equipment,
+                    cattle,
+                    totalCattleIncome
+                })
+            });
+            const result = yield response.json();
+            if (!response.ok) {
+                throw new Error(result.error || "Submission failed");
+            }
+            alert("✅ Census form submitted successfully!");
+            console.log("Server response:", result);
+        }
+        catch (err) {
+            console.error("Submit error:", err);
+            alert("❌ Error submitting census form. Check console.");
+        }
+    });
 }
