@@ -101,3 +101,10 @@ footer {
     font-size: 13px;
   }
 }
+
+/* Hidden by default sections */
+#farmSection,
+#otherCropSection,
+#otherIrrigationSection {
+  display: none;
+}
