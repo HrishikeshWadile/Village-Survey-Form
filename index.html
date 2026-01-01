@@ -286,6 +286,103 @@
 
     </div>
 
+    <div class="container mb-5">
+        <section class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h5 class="card-title mb-3">
+                    Survey Questions (सर्वे दरम्यान विचारायचे प्रश्न)
+                </h5>
+
+                <div class="grid">
+
+                    <div class="field">
+                        <label>
+                            Are there any newly married couples in the house?
+                            <br>
+                            (घरात नवविवाहित जोडपी आहेत का?)
+                        </label>
+                        <select title="Newly Married Couples">
+                            <option value="">Select (निवडा)</option>
+                            <option>Yes (होय)</option>
+                            <option>No (नाही)</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Is there any pregnant woman in the house?
+                            <br>
+                            (घरात कोणी गरोदर माता आहे का?)
+                        </label>
+                        <select title="Pregnant Woman Status">
+                            <option value="">Select (निवडा)</option>
+                            <option>Yes (होय)</option>
+                            <option>No (नाही)</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Are there small children in the house? If yes, is their vaccination completed?
+                            <br>
+                            (घरात लहान मुले आहेत का? असल्यास त्यांचे सर्व लसीकरण पूर्ण झाले आहे का?)
+                        </label>
+                        <select title="Vaccination Status">
+                            <option value="">Select (निवडा)</option>
+                            <option>Yes, Vaccination Completed (होय, लसीकरण पूर्ण)</option>
+                            <option>Yes, Vaccination Not Completed (होय, लसीकरण अपूर्ण)</option>
+                            <option>No (नाही)</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Does anyone in the house have cough or sputum for more than 15 days?
+                            <br>
+                            (घरात कोणाला पंधरा दिवसांपेक्षा जास्त काळ खोकला किंवा कफ आहे का?)
+                        </label>
+                        <select title="Cough or Sputum Duration">
+                            <option value="">Select (निवडा)</option>
+                            <option>Yes (होय)</option>
+                            <option>No (नाही)</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Does anyone have pale white or pink numb patches on the body?
+                            <br>
+                            (घरातील कोणाच्या अंगावर फिकट पांढरा किंवा गुलाबी बधिर चट्टा आहे का?)
+                        </label>
+                        <select title="Pale White or Pink Numb Patches">
+                            <option value="">Select (निवडा)</option>
+                            <option>Yes (होय)</option>
+                            <option>No (नाही)</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Is anyone in the house suffering from any other disease?
+                            <br>
+                            (घरात कोणी व्यक्ती इतर कुठल्या आजाराने त्रस्त आहे का?)
+                        </label>
+                        <select title="Is anyone in the house suffering from any other disease?"
+                            onchange="this.nextElementSibling.style.display = this.value === 'Yes' ? 'block' : 'none'">
+                            <option value="">Select (निवडा)</option>
+                            <option value="Yes">Yes (होय)</option>
+                            <option value="No">No (नाही)</option>
+                        </select>
+
+                        <input type="text" placeholder="If yes, specify disease (असल्यास आजाराचे नाव लिहा)" />
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+
+
     <!-- SUBMIT BUTTON -->
     <div class="text-center mt-4">
         <button type="button" class="btn btn-success px-5 py-2" onclick="submitCensusForm()">

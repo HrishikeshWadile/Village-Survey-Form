@@ -414,6 +414,7 @@ function sumIncome() {
 }
 function submitCensusForm() {
     return __awaiter(this, void 0, void 0, function* () {
+        var _a;
         try {
             // --- FAMILY DETAILS ---
             const familyDetails = {};
@@ -530,6 +531,29 @@ function submitCensusForm() {
                 cattle.push(cat);
             });
             const totalCattleIncome = cattle.reduce((sum, c) => sum + c.income, 0);
+            // ================= SURVEY QUESTIONS (NEW) =================
+            const surveyQuestions = {};
+            const surveySection = (_a = document.querySelector(".card-title.mb-3:contains('Survey Questions')")) === null || _a === void 0 ? void 0 : _a.closest(".card");
+            if (surveySection) {
+                const fields = surveySection.querySelectorAll(".field");
+                fields.forEach(field => {
+                    var _a, _b;
+                    const label = (_b = (_a = field.querySelector("label")) === null || _a === void 0 ? void 0 : _a.textContent) === null || _b === void 0 ? void 0 : _b.trim();
+                    const select = field.querySelector("select");
+                    const input = field.querySelector("input[type='text']");
+                    if (!label)
+                        return;
+                    if (input && input.value.trim()) {
+                        surveyQuestions[label] = {
+                            answer: (select === null || select === void 0 ? void 0 : select.value) || "",
+                            details: input.value.trim()
+                        };
+                    }
+                    else {
+                        surveyQuestions[label] = (select === null || select === void 0 ? void 0 : select.value) || "";
+                    }
+                });
+            }
             // --- POST TO NETLIFY FUNCTION ---
             const response = yield fetch("/.netlify/functions/submitCensus", {
                 method: "POST",
@@ -540,7 +564,8 @@ function submitCensusForm() {
                     farmDetails,
                     equipment,
                     cattle,
-                    totalCattleIncome
+                    totalCattleIncome,
+                    surveyQuestions
                 })
             });
             const result = yield response.json();

@@ -613,6 +613,36 @@ async function submitCensusForm(): Promise<void> {
 
         const totalCattleIncome = cattle.reduce((sum, c) => sum + c.income, 0);
 
+        // ================= SURVEY QUESTIONS (NEW) =================
+        const surveyQuestions: Record<string, any> = {};
+
+        const surveySection = document.querySelector(
+            ".card-title.mb-3:contains('Survey Questions')"
+        )?.closest(".card");
+
+        if (surveySection) {
+            const fields = surveySection.querySelectorAll(".field");
+
+            fields.forEach(field => {
+                const label = field.querySelector("label")?.textContent?.trim();
+                const select = field.querySelector("select") as HTMLSelectElement;
+                const input = field.querySelector(
+                    "input[type='text']"
+                ) as HTMLInputElement | null;
+
+                if (!label) return;
+
+                if (input && input.value.trim()) {
+                    surveyQuestions[label] = {
+                        answer: select?.value || "",
+                        details: input.value.trim()
+                    };
+                } else {
+                    surveyQuestions[label] = select?.value || "";
+                }
+            });
+        }
+
         // --- POST TO NETLIFY FUNCTION ---
         const response = await fetch("/.netlify/functions/submitCensus", {
             method: "POST",
@@ -623,7 +653,8 @@ async function submitCensusForm(): Promise<void> {
                 farmDetails,
                 equipment,
                 cattle,
-                totalCattleIncome
+                totalCattleIncome,
+                surveyQuestions
             })
         });
 
