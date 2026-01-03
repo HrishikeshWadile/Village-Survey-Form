@@ -625,11 +625,20 @@ async function submitCensusForm(): Promise<void> {
         // ================= SURVEY QUESTIONS (NEW) =================
         const surveyQuestions: Record<string, any> = {};
 
-        const surveySection = document.querySelector(
-            ".card-title.mb-3:contains('Survey Questions')"
-        )?.closest(".card");
+        let surveySection: HTMLElement | null = null;
 
-        if (surveySection) {
+        const surveyTitles = document.querySelectorAll<HTMLElement>(
+            ".card-title.mb-3"
+        );
+
+        for (const title of surveyTitles) {
+            if (title.textContent?.includes("Survey Questions")) {
+                surveySection = title.closest(".card") as HTMLElement;
+                break;
+            }
+        }
+
+        if (surveySection !== null) {
             const fields = surveySection.querySelectorAll(".field");
 
             fields.forEach(field => {
@@ -656,17 +665,27 @@ async function submitCensusForm(): Promise<void> {
         // ================= FEEDBACK SECTION (NEW) =================
         const feedbackSection: Record<string, any> = {};
 
-        const feedbackCard = document.querySelector(
-            ".card:has(h5:contains('Feedback'))"
+        let feedbackCard: HTMLElement | null = null;
+
+        const feedbackHeaders = document.querySelectorAll<HTMLElement>(
+            ".card h5"
         );
 
-        if (feedbackCard) {
+        for (const h5 of feedbackHeaders) {
+            if (h5.textContent?.includes("Feedback")) {
+                feedbackCard = h5.closest(".card") as HTMLElement;
+                break;
+            }
+        }
+
+        if (feedbackCard !== null) {
             const textarea = feedbackCard.querySelector(
                 "textarea"
-            ) as HTMLTextAreaElement;
+            ) as HTMLTextAreaElement | null;
+
             const select = feedbackCard.querySelector(
                 "select"
-            ) as HTMLSelectElement;
+            ) as HTMLSelectElement | null;
 
             feedbackSection.suggestions = textarea?.value || "";
             feedbackSection.satisfaction = select?.value || "";

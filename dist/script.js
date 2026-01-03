@@ -423,7 +423,7 @@ function sumIncome() {
 }
 function submitCensusForm() {
     return __awaiter(this, void 0, void 0, function* () {
-        var _a;
+        var _a, _b;
         try {
             // --- FAMILY DETAILS ---
             const familyDetails = {};
@@ -542,8 +542,15 @@ function submitCensusForm() {
             const totalCattleIncome = cattle.reduce((sum, c) => sum + c.income, 0);
             // ================= SURVEY QUESTIONS (NEW) =================
             const surveyQuestions = {};
-            const surveySection = (_a = document.querySelector(".card-title.mb-3:contains('Survey Questions')")) === null || _a === void 0 ? void 0 : _a.closest(".card");
-            if (surveySection) {
+            let surveySection = null;
+            const surveyTitles = document.querySelectorAll(".card-title.mb-3");
+            for (const title of surveyTitles) {
+                if ((_a = title.textContent) === null || _a === void 0 ? void 0 : _a.includes("Survey Questions")) {
+                    surveySection = title.closest(".card");
+                    break;
+                }
+            }
+            if (surveySection !== null) {
                 const fields = surveySection.querySelectorAll(".field");
                 fields.forEach(field => {
                     var _a, _b;
@@ -565,8 +572,15 @@ function submitCensusForm() {
             }
             // ================= FEEDBACK SECTION (NEW) =================
             const feedbackSection = {};
-            const feedbackCard = document.querySelector(".card:has(h5:contains('Feedback'))");
-            if (feedbackCard) {
+            let feedbackCard = null;
+            const feedbackHeaders = document.querySelectorAll(".card h5");
+            for (const h5 of feedbackHeaders) {
+                if ((_b = h5.textContent) === null || _b === void 0 ? void 0 : _b.includes("Feedback")) {
+                    feedbackCard = h5.closest(".card");
+                    break;
+                }
+            }
+            if (feedbackCard !== null) {
                 const textarea = feedbackCard.querySelector("textarea");
                 const select = feedbackCard.querySelector("select");
                 feedbackSection.suggestions = (textarea === null || textarea === void 0 ? void 0 : textarea.value) || "";
