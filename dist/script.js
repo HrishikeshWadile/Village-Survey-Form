@@ -183,13 +183,22 @@ function generateMembers() {
                 </div>
 
                 <div class="field">
-                    <label>ABHA Number (आभा क्रमांक)</label>
+                    <label>Ayushman Bharat Card Number (आभा क्रमांक)</label>
                     <select>
                         <option>Yes (होय)</option>
                         <option>No (नाही)</option>
                     </select>
                 </div>
-
+                
+                <div class="field">
+                    <label>Voting Card(मतदार कार्ड)</label>
+                    <select title="Voting Card">
+                        <option value="">Select (निवडा)</option>
+                        <option>Yes (होय)</option>
+                        <option>No (नाही)</option>
+                    </select>
+                </div>
+            
             </div>
         `;
         container.appendChild(box);
@@ -553,6 +562,15 @@ function submitCensusForm() {
                         surveyQuestions[label] = (select === null || select === void 0 ? void 0 : select.value) || "";
                     }
                 });
+            }
+            // ================= FEEDBACK SECTION (NEW) =================
+            const feedbackSection = {};
+            const feedbackCard = document.querySelector(".card:has(h5:contains('Feedback'))");
+            if (feedbackCard) {
+                const textarea = feedbackCard.querySelector("textarea");
+                const select = feedbackCard.querySelector("select");
+                feedbackSection.suggestions = (textarea === null || textarea === void 0 ? void 0 : textarea.value) || "";
+                feedbackSection.satisfaction = (select === null || select === void 0 ? void 0 : select.value) || "";
             }
             // --- POST TO NETLIFY FUNCTION ---
             const response = yield fetch("/.netlify/functions/submitCensus", {
