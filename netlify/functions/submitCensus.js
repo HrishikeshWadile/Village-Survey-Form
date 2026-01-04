@@ -6,7 +6,7 @@ let cachedClient = null;
 async function connectToDB() {
     if (cachedClient) return cachedClient;
 
-    const client = new MongoClient(process.env.MONGO_URI);
+    const client = new MongoClient(process.env.MONGODB_URI);
     await client.connect();
     cachedClient = client;
     return client;
@@ -14,7 +14,7 @@ async function connectToDB() {
 
 exports.handler = async (event) => {
 
-    // ✅ Handle CORS preflight
+    // ✅ HANDLE PREFLIGHT (THIS FIXES 405)
     if (event.httpMethod === "OPTIONS") {
         return {
             statusCode: 200,
@@ -27,10 +27,13 @@ exports.handler = async (event) => {
         };
     }
 
-    // ❌ Reject non-POST (after OPTIONS is handled)
+    // ❌ Reject non-POST AFTER OPTIONS
     if (event.httpMethod !== "POST") {
         return {
             statusCode: 405,
+            headers: {
+                "Access-Control-Allow-Origin": "*"
+            },
             body: JSON.stringify({ error: "Method Not Allowed" })
         };
     }
@@ -39,9 +42,10 @@ exports.handler = async (event) => {
         const data = JSON.parse(event.body);
 
         const client = await connectToDB();
-        const db = client.db(process.env.MONGO_DB_NAME);
+        const db = client.db(process.env.MONGODB_DB_NAME);
+        const collection = db.collection("submissions");
 
-        const result = await db.collection("census").insertOne({
+        await collection.insertOne({
             ...data,
             createdAt: new Date()
         });
@@ -51,18 +55,20 @@ exports.handler = async (event) => {
             headers: {
                 "Access-Control-Allow-Origin": "*"
             },
-            body: JSON.stringify({
-                message: "Census submitted successfully",
-                insertedId: result.insertedId
-            })
+            body: JSON.stringify({ success: true })
         };
 
     } catch (err) {
-        console.error("Submit error:", err);
+        console.error("🔥 FUNCTION ERROR:", err);
+
         return {
             statusCode: 500,
+            headers: {
+                "Access-Control-Allow-Origin": "*"
+            },
             body: JSON.stringify({
-                error: "Internal Server Error"
+                error: "Internal Server Error",
+                message: err.message
             })
         };
     }
