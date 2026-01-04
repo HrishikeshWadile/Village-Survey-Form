@@ -88,6 +88,7 @@ function addScheme() {
     wrapper.style.gap = "6px";
     const input = document.createElement("input");
     input.type = "text";
+    input.setAttribute("data-key", "scheme");
     const btn = document.createElement("button");
     btn.type = "button";
     btn.textContent = "X";
@@ -113,17 +114,17 @@ function generateMembers() {
 
                 <div class="field">
                     <label>Name (नाव)</label>
-                    <input type="text" />
+                    <input type="text" data-key="name" />
                 </div>
 
                 <div class="field">
                     <label>Age (वय)</label>
-                    <input type="number" min="0" />
+                    <input type="number" min="0" data-key="age" />
                 </div>
 
                 <div class="field">
                     <label>Gender (लिंग)</label>
-                    <select>
+                    <select data-key="gender">
                         <option value="">Select (निवडा)</option>
                         <option>Male (पुरुष)</option>
                         <option>Female (स्त्री)</option>
@@ -133,12 +134,12 @@ function generateMembers() {
 
                 <div class="field">
                     <label>Relation with Head (कुटुंब प्रमुखाशी नाते)</label>
-                    <input type="text" />
+                    <input type="text" data-key="relation" />
                 </div>
 
                 <div class="field">
                     <label>Marital Status (वैवाहिक स्थिती)</label>
-                    <select>
+                    <select data-key="maritalStatus">
                         <option value="">Select (निवडा)</option>
                         <option>Married (विवाहित)</option>
                         <option>Unmarried (अविवाहित)</option>
@@ -148,28 +149,28 @@ function generateMembers() {
 
                 <div class="field">
                     <label>Mobile Number (मोबाईल क्रमांक)</label>
-                    <input type="tel" />
+                    <input type="tel" data-key="mobileNumber" />
                 </div>
 
                 <div class="field">
                     <label>Annual Income (₹) (वार्षिक उत्पन्न)</label>
-                    <input type="number" min="0" />
+                    <input type="number" min="0" data-key="annualIncome" />
                 </div>
 
                 <div class="field">
                     <label>Education (शिक्षण)</label>
-                    <input type="text" />
+                    <input type="text" data-key="education" />
                 </div>
 
                 <div class="field">
                     <label>Occupation (व्यवसाय)</label>
-                    <input type="text" />
+                    <input type="text" data-key="occupation" />
                 </div>
 
                 
                 <div class="field">
                     <label>Residence (राहण्याची जागा)</label>
-                    <select title="Residence">
+                    <select title="Residence" data-key="residence">
                         <option value="">Select (निवडा)</option>
                         <option value="Village">Village (गाव)</option>
                         <option value="Outside Village">Outside Village (गावाबाहेर)</option>
@@ -179,12 +180,12 @@ function generateMembers() {
 
                 <div class="field">
                     <label>Aadhaar Number (आधार क्रमांक)</label>
-                    <input type="text" maxlength="12" />
+                    <input type="text" maxlength="12" data-key="aadhaarNumber" />
                 </div>
 
                 <div class="field">
                     <label>Ayushman Bharat Card Number (आभा क्रमांक)</label>
-                    <select>
+                    <select data-key="ayushmanBharatCard">
                         <option>Yes (होय)</option>
                         <option>No (नाही)</option>
                     </select>
@@ -192,7 +193,7 @@ function generateMembers() {
                 
                 <div class="field">
                     <label>Voting Card(मतदार कार्ड)</label>
-                    <select title="Voting Card">
+                    <select title="Voting Card" data-key="votingCard">
                         <option value="">Select (निवडा)</option>
                         <option>Yes (होय)</option>
                         <option>No (नाही)</option>
@@ -431,17 +432,22 @@ function submitCensusForm() {
             // For simplicity, get all inputs in the top section
             const topInputs = document.querySelectorAll(".card:first-of-type .field input, .card:first-of-type .field select");
             topInputs.forEach(input => {
-                var _a;
+                var _a, _b;
                 const el = input;
-                if (el.id)
-                    familyDetails[el.id] = el.value;
-                else if (el.name)
-                    familyDetails[el.name] = el.value;
-                else if ((_a = el.previousElementSibling) === null || _a === void 0 ? void 0 : _a.textContent) {
-                    const key = el.previousElementSibling.textContent.trim();
+                const key = el.getAttribute("data-key") || el.id || el.name || ((_b = (_a = el.previousElementSibling) === null || _a === void 0 ? void 0 : _a.textContent) === null || _b === void 0 ? void 0 : _b.trim());
+                if (key) {
                     familyDetails[key] = el.value;
                 }
             });
+            // --- SCHEMES ---
+            const schemes = [];
+            const schemeInputs = document.querySelectorAll("#schemes input[data-key='scheme']");
+            schemeInputs.forEach(input => {
+                const val = input.value.trim();
+                if (val)
+                    schemes.push(val);
+            });
+            familyDetails.schemes = schemes;
             // --- MEMBERS ---
             const members = [];
             const memberCards = document.querySelectorAll("#members .card");
@@ -449,10 +455,12 @@ function submitCensusForm() {
                 const member = {};
                 const inputs = card.querySelectorAll("input, select");
                 inputs.forEach(input => {
-                    var _a;
+                    var _a, _b;
                     const el = input;
-                    const key = ((_a = el.previousElementSibling) === null || _a === void 0 ? void 0 : _a.textContent.trim()) || "unknown";
-                    member[key] = el.value;
+                    const key = el.getAttribute("data-key") || ((_b = (_a = el.previousElementSibling) === null || _a === void 0 ? void 0 : _a.textContent) === null || _b === void 0 ? void 0 : _b.trim());
+                    if (key) {
+                        member[key] = el.value;
+                    }
                 });
                 members.push(member);
             });
@@ -519,6 +527,8 @@ function submitCensusForm() {
                 const qty = row.querySelector("input[type='number']");
                 eq["name"] = select.value === "Other" ? input.value : select.value;
                 eq["quantity"] = Number(qty.value) || 0;
+                if (!eq.name)
+                    return;
                 equipment.push(eq);
             });
             // --- CATTLE ---
@@ -537,6 +547,8 @@ function submitCensusForm() {
                 cat["production"] = production.value;
                 cat["unit"] = unit.value;
                 cat["income"] = Number(income.value) || 0;
+                if (!cat.type)
+                    return;
                 cattle.push(cat);
             });
             const totalCattleIncome = cattle.reduce((sum, c) => sum + c.income, 0);
@@ -557,17 +569,11 @@ function submitCensusForm() {
                     const label = (_b = (_a = field.querySelector("label")) === null || _a === void 0 ? void 0 : _a.textContent) === null || _b === void 0 ? void 0 : _b.trim();
                     const select = field.querySelector("select");
                     const input = field.querySelector("input[type='text']");
-                    if (!label)
+                    if (!label || (!select && !input))
                         return;
-                    if (input && input.value.trim()) {
-                        surveyQuestions[label] = {
-                            answer: (select === null || select === void 0 ? void 0 : select.value) || "",
-                            details: input.value.trim()
-                        };
-                    }
-                    else {
-                        surveyQuestions[label] = (select === null || select === void 0 ? void 0 : select.value) || "";
-                    }
+                    surveyQuestions[label] = input && input.value.trim()
+                        ? { answer: (select === null || select === void 0 ? void 0 : select.value) || "", details: input.value.trim() }
+                        : (select === null || select === void 0 ? void 0 : select.value) || "";
                 });
             }
             // ================= FEEDBACK SECTION (NEW) =================
@@ -587,6 +593,16 @@ function submitCensusForm() {
                 feedbackSection.satisfaction = (select === null || select === void 0 ? void 0 : select.value) || "";
             }
             // --- POST TO NETLIFY FUNCTION ---
+            console.log({
+                familyDetails,
+                members,
+                farmDetails,
+                equipment,
+                cattle,
+                totalCattleIncome,
+                surveyQuestions,
+                feedbackSection
+            });
             const response = yield fetch("/netlify/functions/submitCensus", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },

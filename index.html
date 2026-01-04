@@ -38,27 +38,27 @@
 
                     <div class="field">
                         <label>House Number (घर क्रमांक)</label>
-                        <input title="House Number" />
+                        <input title="House Number" data-key="houseNumber" />
                     </div>
 
                     <div class="field">
                         <label>Full Address (संपूर्ण पत्ता)</label>
-                        <input title="Full Address" />
+                        <input title="Full Address" data-key="fullAddress" />
                     </div>
 
                     <div class="field">
                         <label>Head of Family Name (कुटुंब प्रमुखाचे नाव)</label>
-                        <input title="Head of Family Name" />
+                        <input title="Head of Family Name" data-key="headOfFamilyName" />
                     </div>
 
                     <div class="field">
                         <label>Aadhaar Number (आधार कार्ड क्रमांक)</label>
-                        <input title="Aadhaar Number" />
+                        <input title="Aadhaar Number" data-key="aadhaarNumber" />
                     </div>
 
                     <div class="field">
                         <label>Ayushman Bharat Card Number (आभा / आरोग्य क्रमांक)</label>
-                        <select title="Ayushman Bharat Card Number">
+                        <select title="Ayushman Bharat Card Number" data-key="ayushmanBharatCard">
                             <option>Yes (होय)</option>
                             <option>No (नाही)</option>
                         </select>
@@ -66,22 +66,22 @@
 
                     <div class="field">
                         <label>Annual Income (वार्षिक उत्पन्न)</label>
-                        <input type="number" title="Annual Income" />
+                        <input type="number" title="Annual Income" data-key="annualIncome" />
                     </div>
 
                     <div class="field">
                         <label>Mobile Number (मोबाईल क्रमांक)</label>
-                        <input title="Mobile Number" />
+                        <input title="Mobile Number" data-key="mobileNumber" />
                     </div>
 
                     <div class="field">
                         <label>Age (वय)</label>
-                        <input type="number" title="Age" />
+                        <input type="number" title="Age" data-key="age" />
                     </div>
 
                     <div class="field">
                         <label>Gender (लिंग)</label>
-                        <select title="Gender">
+                        <select title="Gender" data-key="gender">
                             <option value="">Select (निवडा)</option>
                             <option value="Male">Male (पुरुष)</option>
                             <option value="Female">Female (महिला)</option>
@@ -91,22 +91,22 @@
 
                     <div class="field">
                         <label>Religion (धर्म)</label>
-                        <input title="Religion" />
+                        <input title="Religion" data-key="religion" />
                     </div>
 
                     <div class="field">
                         <label>Category (वर्ग)</label>
-                        <input title="Category" />
+                        <input title="Category" data-key="category" />
                     </div>
 
                     <div class="field">
                         <label>Caste (जात)</label>
-                        <input title="Caste" />
+                        <input title="Caste" data-key="caste" />
                     </div>
 
                     <div class="field">
                         <label>Marital Status (वैवाहिक स्थिती)</label>
-                        <select title="Marital Status">
+                        <select title="Marital Status" data-key="maritalStatus">
                             <option value="">Select (निवडा)</option>
                             <option value="Married">Married (विवाहित)</option>
                             <option value="Unmarried">Unmarried (अविवाहित)</option>
@@ -116,17 +116,17 @@
 
                     <div class="field">
                         <label>Education Qualification (शैक्षणिक पात्रता)</label>
-                        <input title="Education Qualification" />
+                        <input title="Education Qualification" data-key="educationQualification" />
                     </div>
 
                     <div class="field">
                         <label>Occupation / Work (व्यवसाय / काम)</label>
-                        <input title="Occupation / Work" />
+                        <input title="Occupation / Work" data-key="occupation" />
                     </div>
 
                     <div class="field">
                         <label>Voting Card(मतदार कार्ड)</label>
-                        <select title="Voting Card">
+                        <select title="Voting Card" data-key="votingCard">
                             <option value="">Select (निवडा)</option>
                             <option>Yes (होय)</option>
                             <option>No (नाही)</option>
@@ -135,7 +135,7 @@
 
                     <div class="field">
                         <label>Residence (राहण्याची जागा)</label>
-                        <select title="Residence">
+                        <select title="Residence" data-key="residence">
                             <option value="">Select (निवडा)</option>
                             <option value="Village">Village (गाव)</option>
                             <option value="Outside Village">Outside Village (गावाबाहेर)</option>
@@ -145,7 +145,7 @@
 
                     <div class="field">
                         <label>Ration Card Number (रेशन कार्ड क्रमांक)</label>
-                        <select title="Ration Card Number">
+                        <select title="Ration Card Number" data-key="rationCard">
                             <option value="">Select (निवडा)</option>
                             <option>Orange (नारंगी)</option>
                             <option>Yellow (पिवळा)</option>
@@ -161,8 +161,8 @@
 
                     <div class="field">
                         <label>Total Family Members (कुटुंबातील एकूण सदस्य)</label>
-                        <input type="number" id="familyCount" title="Total Family Members"
-                            onchange="generateMembers()" />
+                        <input type="number" id="familyCount" title="Total Family Members" onchange="generateMembers()"
+                            data-key="totalFamilyMembers" />
                     </div>
 
                 </div>
@@ -181,7 +181,7 @@
 
                 <div class="field">
                     <label>Farm Present? (शेती आहे का?)</label>
-                    <select title="Farm Present" onchange="toggleFarm(this.value)">
+                    <select title="Farm Present" onchange="toggleFarm(this.value)" data-key="farmPresent">
                         <option>No (नाही)</option>
                         <option>Yes (होय)</option>
                     </select>
@@ -192,7 +192,7 @@
                     <div class="grid">
                         <div class="field">
                             <label>Total Land Area (एकूण शेती क्षेत्र)</label>
-                            <input title="Total Land Area" />
+                            <input title="Total Land Area" data-key="totalLandArea" />
                         </div>
 
                         <div class="field">
@@ -243,7 +243,7 @@
 
                         <div class="field">
                             <label>Year Round Irrigation (वर्षभर पाणी उपलब्ध आहे का?)</label>
-                            <select title="Year Round Irrigation">
+                            <select title="Year Round Irrigation" data-key="yearRoundIrrigation">
                                 <option>Yes (होय)</option>
                                 <option>No (नाही)</option>
                             </select>
@@ -264,7 +264,7 @@
 
                         <div class="field">
                             <label>Farm Income per Year (शेती उत्पन्न – वार्षिक ₹)</label>
-                            <input type="number" title="Farm Income per Year" />
+                            <input type="number" title="Farm Income per Year" data-key="farmIncomePerYear" />
                         </div>
                     </div>
                 </div>
@@ -311,7 +311,7 @@
                             <br>
                             (घरात नवविवाहित जोडपी आहेत का?)
                         </label>
-                        <select title="Newly Married Couples">
+                        <select title="Newly Married Couples" data-key="newlyMarriedCouples">
                             <option value="">Select (निवडा)</option>
                             <option>Yes (होय)</option>
                             <option>No (नाही)</option>
@@ -324,7 +324,7 @@
                             <br>
                             (घरात कोणी गरोदर माता आहे का?)
                         </label>
-                        <select title="Pregnant Woman Status">
+                        <select title="Pregnant Woman Status" data-key="pregnantWoman">
                             <option value="">Select (निवडा)</option>
                             <option>Yes (होय)</option>
                             <option>No (नाही)</option>
@@ -337,7 +337,7 @@
                             <br>
                             (घरात लहान मुले आहेत का? असल्यास त्यांचे सर्व लसीकरण पूर्ण झाले आहे का?)
                         </label>
-                        <select title="Vaccination Status">
+                        <select title="Vaccination Status" data-key="vaccinationStatus">
                             <option value="">Select (निवडा)</option>
                             <option>Yes, Vaccination Completed (होय, लसीकरण पूर्ण)</option>
                             <option>Yes, Vaccination Not Completed (होय, लसीकरण अपूर्ण)</option>
@@ -351,7 +351,7 @@
                             <br>
                             (घरात कोणाला पंधरा दिवसांपेक्षा जास्त काळ खोकला किंवा कफ आहे का?)
                         </label>
-                        <select title="Cough or Sputum Duration">
+                        <select title="Cough or Sputum Duration" data-key="coughSputum">
                             <option value="">Select (निवडा)</option>
                             <option>Yes (होय)</option>
                             <option>No (नाही)</option>
@@ -364,7 +364,7 @@
                             <br>
                             (घरातील कोणाच्या अंगावर फिकट पांढरा किंवा गुलाबी बधिर चट्टा आहे का?)
                         </label>
-                        <select title="Pale White or Pink Numb Patches">
+                        <select title="Pale White or Pink Numb Patches" data-key="palePatches">
                             <option value="">Select (निवडा)</option>
                             <option>Yes (होय)</option>
                             <option>No (नाही)</option>
@@ -378,13 +378,15 @@
                             (घरात कोणी व्यक्ती इतर कुठल्या आजाराने त्रस्त आहे का?)
                         </label>
                         <select title="Is anyone in the house suffering from any other disease?"
-                            onchange="this.nextElementSibling.style.display = this.value === 'Yes' ? 'block' : 'none'">
+                            onchange="this.nextElementSibling.style.display = this.value === 'Yes' ? 'block' : 'none'"
+                            data-key="otherDisease">
                             <option value="">Select (निवडा)</option>
                             <option value="Yes">Yes (होय)</option>
                             <option value="No">No (नाही)</option>
                         </select>
 
-                        <input type="text" placeholder="If yes, specify disease (असल्यास आजाराचे नाव लिहा)" />
+                        <input type="text" placeholder="If yes, specify disease (असल्यास आजाराचे नाव लिहा)"
+                            data-key="otherDiseaseDetails" />
                     </div>
 
                 </div>
@@ -403,12 +405,12 @@
                         Any suggestions to improve village facilities?
                         (गावातील सुविधा सुधारण्यासाठी काही सूचना आहेत का?)
                     </label>
-                    <textarea title="Suggestions to Improve Village Facilities"></textarea>
+                    <textarea title="Suggestions to Improve Village Facilities" data-key="suggestions"></textarea>
                 </div>
                 <div class="field">
                     <label>Are you satified with the village facilities?
                         (गावातील सुविधांबद्दल आपण समाधानी आहात का?)</label>
-                    <select title="Satisfaction with Village Facilities">
+                    <select title="Satisfaction with Village Facilities" data-key="satisfaction">
                         <option value="">Select (निवडा)</option>
                         <option>Yes (होय)</option>
                         <option>No (नाही)</option>
