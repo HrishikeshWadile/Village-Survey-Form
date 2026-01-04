@@ -108,21 +108,3 @@ footer {
 #otherIrrigationSection {
   display: none;
 }
-
-/* ===== Cattle production quantity input fix ===== */
-
-.production-cell {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-
-.production-cell input[type="number"] {
-  min-width: 90px;
-  /* 👈 increase visibility */
-  width: 90px;
-}
-
-.production-cell select {
-  min-width: 80px;
-}
