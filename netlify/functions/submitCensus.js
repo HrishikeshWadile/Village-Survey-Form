@@ -1,43 +1,69 @@
 require("dotenv").config();
-const express = require("express");
 const { MongoClient } = require("mongodb");
-const app = express();
-const port = process.env.PORT || 3000;
 
-app.use(express.json());
+let cachedClient = null;
 
-// Mongo client
-const uri = process.env.MONGO_URI;
-const dbName = process.env.MONGO_DB_NAME;
-let client;
+async function connectToDB() {
+    if (cachedClient) return cachedClient;
 
-// Connect function
-async function getClient() {
-    if (!client) {
-        client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-        await client.connect();
-    }
+    const client = new MongoClient(process.env.MONGO_URI);
+    await client.connect();
+    cachedClient = client;
     return client;
 }
 
-// POST route to submit census
-app.post("/submitCensus", async (req, res) => {
-    try {
-        const data = req.body;
+exports.handler = async (event) => {
 
-        const mongoClient = await getClient();
-        const db = mongoClient.db(dbName);
-
-        const result = await db.collection("census").insertOne(data);
-
-        res.status(200).json({ message: "Census submitted successfully", insertedId: result.insertedId });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Internal Server Error" });
+    // ✅ Handle CORS preflight
+    if (event.httpMethod === "OPTIONS") {
+        return {
+            statusCode: 200,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "Content-Type",
+                "Access-Control-Allow-Methods": "POST, OPTIONS"
+            },
+            body: ""
+        };
     }
-});
 
-// Start server
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-});
+    // ❌ Reject non-POST (after OPTIONS is handled)
+    if (event.httpMethod !== "POST") {
+        return {
+            statusCode: 405,
+            body: JSON.stringify({ error: "Method Not Allowed" })
+        };
+    }
+
+    try {
+        const data = JSON.parse(event.body);
+
+        const client = await connectToDB();
+        const db = client.db(process.env.MONGO_DB_NAME);
+
+        const result = await db.collection("census").insertOne({
+            ...data,
+            createdAt: new Date()
+        });
+
+        return {
+            statusCode: 200,
+            headers: {
+                "Access-Control-Allow-Origin": "*"
+            },
+            body: JSON.stringify({
+                message: "Census submitted successfully",
+                insertedId: result.insertedId
+            })
+        };
+
+    } catch (err) {
+        console.error("Submit error:", err);
+        return {
+            statusCode: 500,
+            body: JSON.stringify({
+                error: "Internal Server Error"
+            })
+        };
+    }
+};

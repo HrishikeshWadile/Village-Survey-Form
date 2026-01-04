@@ -587,7 +587,7 @@ function submitCensusForm() {
                 feedbackSection.satisfaction = (select === null || select === void 0 ? void 0 : select.value) || "";
             }
             // --- POST TO NETLIFY FUNCTION ---
-            const response = yield fetch("/.netlify/functions/submitCensus", {
+            const response = yield fetch("/netlify/functions/submitCensus", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -597,11 +597,19 @@ function submitCensusForm() {
                     equipment,
                     cattle,
                     totalCattleIncome,
-                    surveyQuestions
+                    surveyQuestions,
+                    feedbackSection
                 })
             });
-            const text = yield response.text();
-            const result = text ? JSON.parse(text) : {};
+            let result = {};
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.includes("application/json")) {
+                result = yield response.json();
+            }
+            else {
+                const text = yield response.text();
+                result = { error: text };
+            }
             if (!response.ok) {
                 throw new Error(result.error || "Submission failed");
             }

@@ -690,7 +690,7 @@ async function submitCensusForm(): Promise<void> {
         }
 
         // --- POST TO NETLIFY FUNCTION ---
-        const response = await fetch("/.netlify/functions/submitCensus", {
+        const response = await fetch("/netlify/functions/submitCensus", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -700,12 +700,21 @@ async function submitCensusForm(): Promise<void> {
                 equipment,
                 cattle,
                 totalCattleIncome,
-                surveyQuestions
+                surveyQuestions,
+                feedbackSection
             })
         });
 
-        const text = await response.text();
-        const result = text ? JSON.parse(text) : {};
+        let result: any = {};
+        const contentType = response.headers.get("content-type");
+
+        if (contentType && contentType.includes("application/json")) {
+            result = await response.json();
+        } else {
+            const text = await response.text();
+            result = { error: text };
+        }
+
 
         if (!response.ok) {
             throw new Error(result.error || "Submission failed");
