@@ -319,7 +319,7 @@ function addEquipment(): void {
                     <option value="Harvester">Harvester (कापणी यंत्र)</option>
                     <option value="SprayerMachine">Sprayer Machine (फवारणी यंत्र)</option>
                     <option value="DripIrrigation">Drip Irrigation System (ठिबक सिंचन)</option>
-                    <option value="None">None (नाही)</option>
+                    <option value="Other">Other (नाही)</option>
                 </select>
                 <input 
                     type="text"
@@ -477,9 +477,7 @@ async function submitCensusForm(): Promise<void> {
     try {
         // --- FAMILY DETAILS ---
         const familyDetails: Record<string, any> = {};
-        const familyFields = document.querySelectorAll(
-            "#members, #familyCount, input, select"
-        );
+        // const familyFields = document.querySelectorAll("#members, #familyCount, input, select");
         // For simplicity, get all inputs in the top section
         const topInputs = document.querySelectorAll(".card:first-of-type .field input, .card:first-of-type .field select");
         topInputs.forEach(input => {
@@ -706,7 +704,8 @@ async function submitCensusForm(): Promise<void> {
             })
         });
 
-        const result = await response.json();
+        const text = await response.text();
+        const result = text ? JSON.parse(text) : {};
 
         if (!response.ok) {
             throw new Error(result.error || "Submission failed");

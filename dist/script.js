@@ -283,7 +283,7 @@ function addEquipment() {
                     <option value="Harvester">Harvester (कापणी यंत्र)</option>
                     <option value="SprayerMachine">Sprayer Machine (फवारणी यंत्र)</option>
                     <option value="DripIrrigation">Drip Irrigation System (ठिबक सिंचन)</option>
-                    <option value="None">None (नाही)</option>
+                    <option value="Other">Other (नाही)</option>
                 </select>
                 <input 
                     type="text"
@@ -427,7 +427,7 @@ function submitCensusForm() {
         try {
             // --- FAMILY DETAILS ---
             const familyDetails = {};
-            const familyFields = document.querySelectorAll("#members, #familyCount, input, select");
+            // const familyFields = document.querySelectorAll("#members, #familyCount, input, select");
             // For simplicity, get all inputs in the top section
             const topInputs = document.querySelectorAll(".card:first-of-type .field input, .card:first-of-type .field select");
             topInputs.forEach(input => {
@@ -600,7 +600,8 @@ function submitCensusForm() {
                     surveyQuestions
                 })
             });
-            const result = yield response.json();
+            const text = yield response.text();
+            const result = text ? JSON.parse(text) : {};
             if (!response.ok) {
                 throw new Error(result.error || "Submission failed");
             }
